@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Riesgo Cardiovascular</title>
+</head>
+<body>
+  <h1>Calculadora de riesgo cardiovascular</h1>
+
+  <form id="form">
+    <label>Edad: <input type="number" name="age" required></label><br>
+    <label>Género (1=masc, 0=fem): <input type="number" name="gender" required></label><br>
+    <label>Colesterol: <input type="number" name="cholesterol" required></label><br>
+    <label>Presión arterial: <input type="number" name="bp" required></label><br>
+    <label>Fuma (1/0): <input type="number" name="smoke" required></label><br>
+    <label>Alcohol (1/0): <input type="number" name="alcohol" required></label><br>
+    <label>Actividad física (h/semana): <input type="number" name="physical_activity" required></label><br>
+    <label>Glucosa: <input type="number" name="glucose" required></label><br>
+    <label>Altura (cm): <input type="number" name="height" required></label><br>
+    <label>Peso (kg): <input type="number" name="weight" required></label><br>
+    <label>IMC: <input type="number" name="BMI" required></label><br>
+    <label>Antecedentes familiares (1/0): <input type="number" name="family_history" required></label><br>
+    <label>Nivel de estrés (0-5): <input type="number" name="stress_level" required></label><br>
+    <button type="submit">Calcular</button>
+  </form>
+
+  <pre id="output"></pre>
+
+  <script src="app.js"></script>
+</body>
+</html>
