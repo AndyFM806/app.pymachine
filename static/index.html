@@ -2,29 +2,330 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Riesgo Cardiovascular</title>
+  <title>Predicción de Riesgo Cardiovascular con IA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <h1>Calculadora de riesgo cardiovascular</h1>
+  <!-- Barra superior -->
+  <header class="top-bar">
+    <div class="logo">
+      <span class="logo-icon">❤️</span>
+      <span class="logo-text">CardioPredict IA</span>
+    </div>
 
-  <form id="form">
-    <label>Edad: <input type="number" name="age" required></label><br>
-    <label>Género (1=masc, 0=fem): <input type="number" name="gender" required></label><br>
-    <label>Colesterol: <input type="number" name="cholesterol" required></label><br>
-    <label>Presión arterial: <input type="number" name="bp" required></label><br>
-    <label>Fuma (1/0): <input type="number" name="smoke" required></label><br>
-    <label>Alcohol (1/0): <input type="number" name="alcohol" required></label><br>
-    <label>Actividad física (h/semana): <input type="number" name="physical_activity" required></label><br>
-    <label>Glucosa: <input type="number" name="glucose" required></label><br>
-    <label>Altura (cm): <input type="number" name="height" required></label><br>
-    <label>Peso (kg): <input type="number" name="weight" required></label><br>
-    <label>IMC: <input type="number" name="BMI" required></label><br>
-    <label>Antecedentes familiares (1/0): <input type="number" name="family_history" required></label><br>
-    <label>Nivel de estrés (0-5): <input type="number" name="stress_level" required></label><br>
-    <button type="submit">Calcular</button>
-  </form>
+    <nav class="nav-links">
+      <button data-view="home-view" class="nav-btn active">Inicio</button>
+      <button data-view="form-view" class="nav-btn">Evaluación</button>
+      <button data-view="info-view" class="nav-btn">Información</button>
+    </nav>
+  </header>
 
-  <pre id="output"></pre>
+  <main>
+    <!-- 🏠 A. Home / Landing -->
+    <section id="home-view" class="view active">
+      <div class="hero">
+        <div class="hero-text">
+          <h1>Predicción de Riesgo Cardiovascular con IA</h1>
+          <p class="hero-subtitle">
+            Evalúa tu riesgo cardiovascular en minutos utilizando modelos
+            clínicos y recomendaciones generadas por inteligencia artificial.
+          </p>
+
+          <ul class="hero-benefits">
+            <li>✅ Detección temprana de riesgo</li>
+            <li>✅ Recomendaciones personalizadas de hábitos saludables</li>
+            <li>✅ Orientación para prevenir complicaciones futuras</li>
+          </ul>
+
+          <button id="btn-start" class="primary-btn">
+            Evaluar mi riesgo
+          </button>
+        </div>
+
+        <div class="hero-card">
+          <h2>¿Cómo funciona?</h2>
+          <ol>
+            <li>Ingresas tus datos clínicos básicos</li>
+            <li>Un modelo médico predice tu nivel de riesgo</li>
+            <li>La IA genera recomendaciones claras y prácticas</li>
+          </ol>
+          <p class="hero-note">
+            Esta herramienta NO reemplaza una consulta médica, pero puede
+            ayudarte a tomar decisiones más informadas.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 📊 B. Formulario Clínico -->
+    <section id="form-view" class="view">
+      <div class="section-header">
+        <h2>Formulario de Evaluación Clínica</h2>
+        <p>Completa tus datos para generar tu evaluación de riesgo.</p>
+      </div>
+
+      <form id="risk-form" class="card form-grid">
+        <!-- Datos básicos -->
+        <div class="form-group">
+          <h3>Datos básicos</h3>
+          <label>
+            Edad (años)
+            <input type="number" name="age" min="0" max="120" required />
+          </label>
+
+          <div class="field-group">
+            <span>Género</span>
+            <div class="radio-group">
+              <label>
+                <input type="radio" name="gender" value="0" required />
+                Femenino
+              </label>
+              <label>
+                <input type="radio" name="gender" value="1" />
+                Masculino
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Perfil metabólico -->
+        <div class="form-group">
+          <h3>Perfil metabólico</h3>
+          <label>
+            Colesterol (mg/dL)
+            <input type="number" name="cholesterol" min="100" max="350" required />
+          </label>
+
+          <label>
+            Presión arterial sistólica (mmHg)
+            <input type="number" name="bp" min="80" max="220" required />
+          </label>
+
+          <label>
+            Glucosa (mg/dL)
+            <input type="number" name="glucose" min="60" max="400" required />
+          </label>
+        </div>
+
+        <!-- Estilo de vida -->
+        <div class="form-group">
+          <h3>Estilo de vida</h3>
+          <div class="toggle-row">
+            <span>Fumador</span>
+            <label class="switch">
+              <input type="checkbox" id="smoke-toggle" />
+              <span class="slider round"></span>
+            </label>
+          </div>
+
+          <div class="toggle-row">
+            <span>Consumo de alcohol</span>
+            <label class="switch">
+              <input type="checkbox" id="alcohol-toggle" />
+              <span class="slider round"></span>
+            </label>
+          </div>
+
+          <label>
+            Actividad física (horas por semana)
+            <input type="number" name="physical_activity" min="0" max="10" required />
+          </label>
+        </div>
+
+        <!-- Medidas corporales -->
+        <div class="form-group">
+          <h3>Medidas corporales</h3>
+          <label>
+            Altura (cm)
+            <input type="number" name="height" min="100" max="230" required />
+          </label>
+
+          <label>
+            Peso (kg)
+            <input type="number" name="weight" min="30" max="250" required />
+          </label>
+
+          <label>
+            IMC
+            <input type="number" name="BMI" step="0.1" readonly />
+            <small>Se calcula automáticamente, puedes editarlo si es necesario.</small>
+          </label>
+        </div>
+
+        <!-- Antecedentes y estrés -->
+        <div class="form-group">
+          <h3>Antecedentes y estrés</h3>
+          <label class="checkbox-row">
+            <input type="checkbox" id="family-history-checkbox" />
+            Antecedentes familiares de enfermedad cardiovascular
+          </label>
+
+          <label>
+            Nivel de estrés (1 = bajo, 5 = muy alto)
+            <div class="slider-row">
+              <input
+                type="range"
+                name="stress_level"
+                id="stress-range"
+                min="1"
+                max="5"
+                value="3"
+              />
+              <span id="stress-value" class="badge">3</span>
+            </div>
+          </label>
+        </div>
+
+        <!-- Acciones -->
+        <div class="form-actions">
+          <button type="submit" class="primary-btn" id="btn-submit">
+            Generar diagnóstico
+          </button>
+          <span id="form-status" class="status-text"></span>
+        </div>
+
+        <!-- Campos ocultos para los toggles/checkbox -->
+        <input type="hidden" name="smoke" value="0" />
+        <input type="hidden" name="alcohol" value="0" />
+        <input type="hidden" name="family_history" value="0" />
+      </form>
+    </section>
+
+    <!-- 🔍 C. Pantalla de Resultado -->
+    <section id="result-view" class="view">
+      <div class="section-header">
+        <h2>Resultado de tu evaluación</h2>
+        <p>Interpretación del modelo y recomendaciones generadas por IA.</p>
+      </div>
+
+      <div id="result-container" class="result-layout hidden">
+        <!-- Columna izquierda: indicador + gráfico -->
+        <div class="card result-main">
+          <div class="risk-header">
+            <span id="risk-label" class="risk-tag">RIESGO</span>
+            <span id="risk-percent" class="risk-percent">0%</span>
+          </div>
+
+          <div class="risk-visual">
+            <div class="risk-circle" id="risk-circle">
+              <div class="risk-circle-inner">
+                <span id="risk-circle-text">0%</span>
+              </div>
+            </div>
+            <div class="risk-legend">
+              <p><span class="dot dot-low"></span> Bajo &lt; 30%</p>
+              <p><span class="dot dot-medium"></span> Moderado 30–60%</p>
+              <p><span class="dot dot-high"></span> Alto &gt; 60%</p>
+            </div>
+          </div>
+
+          <p id="summary-text" class="summary-text"></p>
+
+          <div id="warning-box" class="warning-box hidden"></div>
+
+          <p id="disclaimer-text" class="disclaimer-text"></p>
+        </div>
+
+        <!-- Columna derecha: recomendaciones -->
+        <div class="card result-side">
+          <h3>Recomendaciones personalizadas</h3>
+          <div id="recommendations-list" class="recommendations-list">
+            <!-- Tarjetas generadas por JS -->
+          </div>
+
+          <div class="result-actions">
+            <button id="btn-new-eval" class="secondary-btn">
+              Nueva evaluación
+            </button>
+            <!-- Futuro: botón para descargar PDF -->
+            <!-- <button class="ghost-btn">Descargar reporte PDF</button> -->
+          </div>
+        </div>
+      </div>
+
+      <div id="result-empty" class="result-empty">
+        Aún no has generado una evaluación. Completa el formulario clínico para ver aquí tus resultados.
+      </div>
+    </section>
+
+    <!-- 📚 D. Sección Informativa -->
+    <section id="info-view" class="view">
+      <div class="section-header">
+        <h2>Información sobre riesgo cardiovascular</h2>
+        <p>Aprende más sobre prevención y cuidado de tu salud cardíaca.</p>
+      </div>
+
+      <div class="info-grid">
+        <article class="card">
+          <h3>¿Qué es una enfermedad cardiovascular?</h3>
+          <p>
+            Las enfermedades cardiovasculares afectan al corazón y a los vasos sanguíneos.
+            Incluyen infartos, accidentes cerebrovasculares y otras condiciones que pueden
+            prevenirse con hábitos saludables y control médico periódico.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Factores de riesgo modificables</h3>
+          <ul>
+            <li>Colesterol elevado</li>
+            <li>Tabaquismo</li>
+            <li>Hipertensión arterial</li>
+            <li>Sedentarismo</li>
+            <li>Estrés crónico</li>
+            <li>Alimentación alta en grasas saturadas y azúcares</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Prevención desde casa</h3>
+          <ul>
+            <li>Mantén una dieta equilibrada rica en frutas, verduras y fibra.</li>
+            <li>Realiza al menos 150 minutos de actividad física moderada por semana.</li>
+            <li>Evita fumar y limita el consumo de alcohol.</li>
+            <li>Controla tu peso, presión arterial y colesterol con regularidad.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Signos de alerta</h3>
+          <p>Acude a un servicio de urgencias si presentas:</p>
+          <ul>
+            <li>Dolor u opresión en el pecho</li>
+            <li>Dificultad para respirar</li>
+            <li>Dolor que se irradia a brazo, cuello o mandíbula</li>
+            <li>Mareos intensos, desmayo o sudoración fría</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Cómo interpretar el IMC y la presión arterial</h3>
+          <p>
+            El IMC orienta sobre el peso saludable según tu altura. La presión arterial
+            elevada de forma sostenida aumenta el riesgo de eventos cardiovasculares.
+            Consulta con tu médico los valores adecuados para ti.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Preguntas frecuentes</h3>
+          <p>
+            Esta herramienta utiliza modelos matemáticos y algoritmos de IA para estimar
+            un riesgo aproximado. No reemplaza un diagnóstico médico ni exámenes
+            complementarios. Usa estos resultados como guía para conversar con tu profesional
+            de salud.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>
+      CardioPredict IA · Esta herramienta no sustituye una valoración médica profesional.
+    </p>
+  </footer>
 
   <script src="app.js"></script>
 </body>
