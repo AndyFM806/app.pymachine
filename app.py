@@ -91,34 +91,55 @@ def ttl_cache(ttl_seconds):
         return wrapped
     return wrapper
 
+def _to_float(v, default=0.0):
+    try:
+        return float(v)
+    except (TypeError, ValueError):
+        return default
+
+def _to_int(v, default=0):
+    try:
+        return int(v)
+    except (TypeError, ValueError):
+        return default
+
 # -------------------------------------------------------------
 # Recomendaciones locales (reglas) como fallback
 # -------------------------------------------------------------
 def rule_based_recommendations(data: Dict[str, Any], pred: int, prob: float) -> List[str]:
+    # Normalizar tipos (vienen como strings desde el front)
+    cholesterol = _to_float(data.get("cholesterol", 0))
+    bp = _to_float(data.get("bp", 0))
+    smoke = _to_int(data.get("smoke", 0))
+    alcohol = _to_int(data.get("alcohol", 0))
+    physical_activity = _to_float(data.get("physical_activity", 0))
+    stress_level = _to_float(data.get("stress_level", 0))
+    family_history = _to_int(data.get("family_history", 0))
+
     recs = []
     if pred == 1:
         recs.append("⚠️ Riesgo cardiovascular detectado. Consulte un médico pronto.")
     else:
         recs.append("✅ Riesgo bajo detectado. Mantenga hábitos saludables.")
 
-    # Factores personalizados
-    if data.get("cholesterol", 0) > 240:
+    if cholesterol > 240:
         recs.append("Nivel de colesterol alto: reduzca grasas saturadas y aumente frutas y fibra.")
-    if data.get("bp", 0) > 140:
+    if bp > 140:
         recs.append("Presión arterial elevada: controle el estrés y limite el consumo de sal.")
-    if data.get("smoke", 0) == 1:
+    if smoke == 1:
         recs.append("Fumar aumenta el riesgo cardíaco. Busque ayuda para dejarlo.")
-    if data.get("alcohol", 0) == 1:
+    if alcohol == 1:
         recs.append("Modere el consumo de alcohol; afecta presión y corazón.")
-    if data.get("physical_activity", 0) < 3:
+    if physical_activity < 3:
         recs.append("Aumente su actividad física a al menos 150 minutos semanales.")
-    if data.get("stress_level", 0) > 3:
+    if stress_level > 3:
         recs.append("Niveles altos de estrés: practique relajación o meditación.")
-    if data.get("family_history", 0) == 1:
+    if family_history == 1:
         recs.append("Antecedentes familiares: realice chequeos preventivos con más frecuencia.")
 
     recs.append("Monitoree peso, colesterol y presión periódicamente.")
     return recs
+
 
 # -------------------------------------------------------------
 # Construcción del prompt para la IA
