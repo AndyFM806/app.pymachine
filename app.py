@@ -52,7 +52,7 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 # -------------------------------------------------------------
 # Inicialización de Flask
 # -------------------------------------------------------------
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static", static_url_path="")
 CORS(app)
 
 # -------------------------------------------------------------
@@ -250,11 +250,10 @@ def predict():
 # Endpoint raíz
 # -------------------------------------------------------------
 @app.route("/")
-def home():
-    return jsonify({
-        "mensaje": "API de predicción cardiovascular con IA generativa.",
-        "predict_endpoint": "/predict (POST JSON)"
-    })
+def index():
+    # servirá static/index.html
+    return app.send_static_file("index.html")
+
 
 # -------------------------------------------------------------
 # Ejecutar servidor
